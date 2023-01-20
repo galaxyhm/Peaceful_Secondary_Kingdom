@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1> {{ product.title }}</h1>
+    {{ product.content }}
+    판매가격 : {{ product.price }}원
+    {% for photo in product.photos.all %}
+
+        <img src="{{ photo.image.url }}" alt="">
+
+
+    {% endfor %}
+
+
+{% endblock content%}

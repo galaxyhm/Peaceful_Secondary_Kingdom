@@ -1,7 +1,14 @@
-
 {% extends 'base.html' %}
-{% block content %}
 
+
+    {% block content %}
+
+    <form enctype="multipart/form-data" method="POST">
+    {%csrf_token %}
     {{ form_product.as_p }}
     {{ form_image.as_p }}
-{% endblock content%}
+        <button>
+            눌러
+        </button>
+    </form>
+    {% endblock content %}

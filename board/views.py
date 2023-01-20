@@ -1,29 +1,35 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Photo, Comment
 from .forms import ProductForm, ImageForm
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_safe, require_http_methods, require_POST
 # Create your views here.
 
 
+@require_safe
 def index(request):
     products = Product.objects.all()
-    context = {'Products': products}
+    context = {'products': products}
     return render(request, 'board/index.html', context)
 
 
+@login_required()
+@require_http_methods(['GET','POST'])
 def create_product(request):
     if request.method == 'POST':
         form_product = ProductForm(request.POST)
-        form_image = ImageForm(request.FILES)
+        form_image = ImageForm(request.POST, request.FILES)
         if form_product.is_valid():
             product = form_product.save(commit=False)
-            # 합치면 주석을 풀것
-            # product.user = request.user
+            product.user = request.user
             product.save()
+
             if form_image.is_valid():
                 image = form_image.save(commit=False)
-                image.product = product.id
+                image.product = product
+                image.user = request.user
                 image.save()
-                redirect('')
+                return redirect('board:board_product', product.id)
     else:
         form_product = ProductForm()
         form_image = ImageForm()
@@ -33,8 +39,12 @@ def create_product(request):
     return render(request, 'board/product_form.html', context)
 
 
+@require_safe
 def board_product(request, product_id):
-    pass
+    product = get_object_or_404(Product, pk=product_id)
+    context = {'product': product}
+
+    return render(request, 'board/product_detail.html', context)
 
 
 def board_product_delete(request, product_id):
