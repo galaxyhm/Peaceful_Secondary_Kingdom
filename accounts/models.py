@@ -16,8 +16,8 @@ class PaymentInfo(models.Model):
         on_delete=models.DO_NOTHING,
         related_name='payment_info',
     )
-    bank_account = models.IntegerField()
-    bank_account_password = models.IntegerField()
+    bank_account = models.IntegerField(null=True)
+    bank_account_password = models.IntegerField(null=True)
 
 
 '''

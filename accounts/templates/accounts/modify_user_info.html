@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    
     <form action="{% url 'modify_user_info' accounts.pk %}">
         {% csrf_token %}
         {{ user.as_p }}
-        {{ pay.as_p }}
         <button>수정</button>
     </form>
 

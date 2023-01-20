@@ -6,7 +6,7 @@
     
     <form action="{% url 'accounts:signup' %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form_user.as_p }}
         <div><button>계정 생성</button></div>
     </form>
 
