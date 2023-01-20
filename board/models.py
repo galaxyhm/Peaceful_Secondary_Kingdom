@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Product(models.Model):
@@ -9,7 +10,7 @@ class Product(models.Model):
         (3, '직거래 + 안전거래'),
 
     )
-    # user = models.ForeignKey() Account 개발 될때 까지 중단
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='products')
     title = models.CharField(max_length=100)
     content = models.TextField()
 
@@ -21,8 +22,8 @@ class Product(models.Model):
 
 
 class Photo(models.Model):
-    # user = models.ForeignKey
-    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='photos')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photos')
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING , related_name='photos')
     image = models.ImageField(upload_to='images/')
 
 
