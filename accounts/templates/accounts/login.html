@@ -4,9 +4,10 @@
 
     <h1>로그인</h1>
 
-    <form action="{% url 'accounts:login' %}" method="POST">
+    <form method="POST">
         {% csrf_token %}
-        
+        {{ form.as_p }}
+        <button>로그인</button>
     </form>
 
 

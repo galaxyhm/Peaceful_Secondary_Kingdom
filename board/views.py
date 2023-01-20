@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
 from .models import Product, Photo, Comment
+from accounts.models import User
 from .forms import ProductForm, ImageForm
 # Create your views here.
 
 
 def index(request):
     products = Product.objects.all()
-    context = {'Products': products}
+    users = User.objects.all()
+    context = {
+        'Products': products,
+        'users': users,
+    }
     return render(request, 'board/index.html', context)
 
 

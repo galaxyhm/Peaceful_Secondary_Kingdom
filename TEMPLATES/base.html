@@ -7,8 +7,33 @@
     <title>Document</title>
 </head>
 <body>
+    {% if not request.user.is_authenticated %}
+    <div>
+        <a href="{% url 'board:board_index' %}">메인 화면</a>
+    </div>
+    <div>
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+    </div>
+    <div>
+        <a href="{% url 'accounts:login' %}">로그인</a>
+    </div>
+    {% else %}
+    <div>
+        <a href="{% url 'board:board_index' %}">메인 화면</a>
+    </div>
+    <div>
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+    </div>
+    <div>
+        <a href="{% url 'accounts:signup' %}">회원정보 수정</a>
+    </div>
+    <div>
+        <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    </div>
+    {% endif %}
+
     {% block content %}
-    
+
     {% endblock content %}
 </body>
 </html>

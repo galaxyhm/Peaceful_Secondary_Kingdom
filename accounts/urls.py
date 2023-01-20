@@ -8,12 +8,12 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
 
     # accounts/insert_payment_info
-    path('insert_payment_info', views.insert_payment_info, name='insert_payment_info'),
+    path('<int:accounts_pk>/modify_user_info', views.modify_user_info, name='modify_user_info'),
 
-    # 1/accounts/login
+    # accounts/login
     path('login/', views.login, name='login'),
 
-    # 1/accounts/logout
+    # accounts/logout
     path('logout/', views.logout, name='logout'),
 ]
 

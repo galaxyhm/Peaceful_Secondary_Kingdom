@@ -1,15 +1,18 @@
+from django.contrib.auth import get_user_model
 from django import forms
-from .models import User, PaymentInfo
+from django.contrib.auth.forms import UserCreationForm
+from .models import PaymentInfo
 
-class UserForm(forms.ModelForm):
+User = get_user_model()
 
-    class meta:
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
         model = User
         fields = (
-            'password',
             'username',
-            'firstname', 
-            'lastname',
+            'first_name', 
+            'last_name',
             'email',
             'birthday',
             'address',
@@ -18,6 +21,6 @@ class UserForm(forms.ModelForm):
 
 class PaymentInfoForm(forms.ModelForm):
 
-    class meta:
+    class Meta:
         model = PaymentInfo
         fields = '__all__'
